@@ -32,6 +32,7 @@ class Blocks extends React.Component {
     constructor (props) {
         super(props);
         this.ScratchBlocks = VMScratchBlocks(props.vm);
+        this.ScratchBlocks.STACK_GLOW_RADIUS *= 4;
         bindAll(this, [
             'attachVM',
             'detachVM',
@@ -39,6 +40,9 @@ class Blocks extends React.Component {
             'handlePromptStart',
             'handlePromptCallback',
             'handlePromptClose',
+            'handleFlyoutEvent',
+            'handleNextStepTimeout',
+            'handleNextStepTimeout_',
             'handleCustomProceduresClose',
             'onScriptGlowOn',
             'onScriptGlowOff',
@@ -50,7 +54,8 @@ class Blocks extends React.Component {
             'onVisualReport',
             'onWorkspaceUpdate',
             'onWorkspaceMetricsChange',
-            'setBlocks'
+            'setBlocks',
+            'handleStep'
         ]);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.state = {
@@ -132,6 +137,7 @@ class Blocks extends React.Component {
         this.props.vm.addListener('targetsUpdate', this.onTargetsUpdate);
         this.props.vm.addListener('EXTENSION_ADDED', this.handleExtensionAdded);
         this.props.vm.addListener('BLOCKSINFO_UPDATE', this.handleBlocksInfoUpdate);
+        this.props.vm.addListener('STEP', this.handleStep);
     }
     detachVM () {
         this.props.vm.removeListener('SCRIPT_GLOW_ON', this.onScriptGlowOn);
@@ -231,6 +237,126 @@ class Blocks extends React.Component {
     }
     handleCategorySelected (categoryName) {
         this.workspace.toolbox_.setSelectedCategoryByName(categoryName);
+    }
+    handleStep (number, nextStepCallback, fadeCallback) {
+        this.stepNumber = number;
+        this.nextStepCallback = nextStepCallback;
+        this.fadeCallback = fadeCallback;
+        switch (number) {
+            case 0:
+                this.workspace.toolbox_.setSelectedCategoryByName('Looks');
+                this.glowingBlock = this.workspace.topBlocks_[0];
+                if (this.glowingBlock) {
+                    this.glowOn = false;
+                    this.intervalId = setInterval(() => {
+                        this.glowOn = !this.glowOn;
+                        this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
+                    }, 500);
+                    // this.workspace.addChangeListener(this.handleFlyoutEvent);
+                    this.workspace.addChangeListener(this.handleNextStepTimeout);
+                } else {
+                    setTimeout(() => {
+                        this.handleStep(number, nextStepCallback);
+                    }, 500)
+                }
+                break;
+            case 1:
+                clearInterval(this.intervalId);
+                if (this.glowingBlock) this.workspace.glowStack(this.glowingBlock.id, false);
+                // this.workspace.removeChangeListener(this.handleFlyoutEvent);
+                this.workspace.removeChangeListener(this.handleNextStepTimeout);
+
+                this.workspace.toolbox_.setSelectedCategoryByName('Sound');
+
+                this.glowingBlock = this.workspace.getFlyout().getWorkspace().topBlocks_.find((b) => b.type === 'sound_playuntildone');
+                this.glowOn = false;
+                this.intervalId = setInterval(() => {
+                    this.glowOn = !this.glowOn;
+                    this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
+                }, 500);
+
+                this.workspace.addChangeListener(this.handleNextStepTimeout);
+                // this.workspace.addChangeListener(this.handleFlyoutEvent);
+
+                break;
+            case 2:
+                this.workspace.removeChangeListener(this.handleNextStepTimeout);
+                // this.workspace.removeChangeListener(this.handleFlyoutEvent);
+
+                clearInterval(this.intervalId);
+                this.workspace.glowStack(this.glowingBlock.id, false);
+
+                this.workspace.toolbox_.setSelectedCategoryByName('Events');
+
+                this.glowingBlock = this.workspace.getFlyout().getWorkspace().topBlocks_.find((b) => b.type === 'event_whenthisspriteclicked');
+                this.glowOn = false;
+                this.intervalId = setInterval(() => {
+                    this.glowOn = !this.glowOn;
+                    this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
+                }, 500);
+
+                this.workspace.addChangeListener(this.handleNextStepTimeout);
+                // this.workspace.addChangeListener(this.handleFlyoutEvent);
+
+                break;
+            case 3:
+                this.workspace.removeChangeListener(this.handleNextStepTimeout);
+                // this.workspace.removeChangeListener(this.handleFlyoutEvent);
+
+                this.workspace.glowStack(this.glowingBlock.id, false);
+                // this.workspace.toolbox_.setSelectedCategoryByName('Motion');
+                break;
+            case 4:
+                // this.workspace.removeChangeListener(this.handleNextStepTimeout);
+                // this.workspace.removeChangeListener(this.handleFlyoutEvent);
+
+                // this.workspace.glowStack(this.glowingBlock.id, false);
+                this.workspace.toolbox_.setSelectedCategoryByName('Motion');
+                break;
+        }
+    }
+    handleFlyoutEvent (e) {
+        // clear glowing when flyout event is received. bound and unbound by steps.
+        clearInterval(this.intervalId);
+        if (this.glowingBlock) this.workspace.glowStack(this.glowingBlock.id, false);
+        this.fadeCallback();
+    }
+    handleNextStepTimeout (e) {
+        // clear glowing when flyout event is received. bound and unbound by steps.
+        console.log('next step timeout', e);
+
+        switch (this.stepNumber) {
+            case 0:
+                console.log('step 0', e)
+                if (e.element === 'stackclick') {
+                    console.log('stack click!')
+                    this.handleFlyoutEvent(e);
+                    this.handleNextStepTimeout_();
+                }
+                break;
+            case 1:
+                if (e instanceof this.ScratchBlocks.Events.Create) {
+                    console.log('created block!', e)
+                    this.handleFlyoutEvent(e);
+                    this.handleNextStepTimeout_();
+                }
+                break;
+            case 2:
+                if (e instanceof this.ScratchBlocks.Events.Create) {
+                    console.log('created block!', e)
+                    this.handleFlyoutEvent(e);
+                    this.handleNextStepTimeout_();
+                }
+            // case 1:
+        }
+    }
+    handleNextStepTimeout_ () {
+        console.log('matched criteria', this.stepNumber)
+        clearTimeout(this.timeoutId);
+        this.timeoutId = setTimeout(() => {
+            console.log('next step timed out!')
+            this.nextStepCallback();
+        }, 2000);
     }
     setBlocks (blocks) {
         this.blocks = blocks;
@@ -369,6 +495,7 @@ Blocks.defaultOptions = {
         insertionMarkerOpacity: 0.2,
         fieldShadow: 'rgba(255, 255, 255, 0.3)',
         dragShadowOpacity: 0.6
+        // stackGlow: '#4C97FF'
     },
     comments: false,
     collapse: false

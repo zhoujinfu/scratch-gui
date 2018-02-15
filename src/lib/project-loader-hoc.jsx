@@ -38,7 +38,8 @@ const ProjectLoaderHOC = function (WrappedComponent) {
             window.removeEventListener('hashchange', this.updateProject);
         }
         fetchProjectId () {
-            return window.location.hash.substring(1);
+            // return window.location.hash.substring(1);
+            return '204267635';
         }
         updateProject () {
             let projectId = this.fetchProjectId();

@@ -18,6 +18,8 @@ import Stage from '../../containers/stage.jsx';
 import Box from '../box/box.jsx';
 import FeedbackForm from '../feedback-form/feedback-form.jsx';
 import MenuBar from '../menu-bar/menu-bar.jsx';
+import Frame from '../frame/frame.jsx';
+
 import PreviewModal from '../../containers/preview-modal.jsx';
 import ImportModal from '../../containers/import-modal.jsx';
 import WebGlModal from '../../containers/webgl-modal.jsx';
@@ -75,9 +77,9 @@ const GUIComponent = props => {
             className={styles.pageWrapper}
             {...componentProps}
         >
-            {previewInfoVisible ? (
+            {/* previewInfoVisible ? (
                 <PreviewModal />
-            ) : null}
+            ) : null */}
             {importInfoVisible ? (
                 <ImportModal />
             ) : null}
@@ -87,6 +89,7 @@ const GUIComponent = props => {
             {isRendererSupported ? null : (
                 <WebGlModal />
             )}
+            <Frame vm={vm} />
             <MenuBar />
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>

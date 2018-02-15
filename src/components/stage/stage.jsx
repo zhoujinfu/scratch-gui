@@ -24,7 +24,7 @@ const StageComponent = props => {
     } = props;
 
     const stageSize = getStageSize(isFullScreen, height, width);
-    
+
     return (
         <div>
             <Box
@@ -41,6 +41,7 @@ const StageComponent = props => {
                     )}
                     componentRef={canvasRef}
                     element="canvas"
+                    id="stage"
                     height={stageSize.height}
                     width={stageSize.width}
                     {...boxProps}
