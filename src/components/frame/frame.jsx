@@ -6,6 +6,7 @@ import styles from './frame.css';
 import mouseIcon from './Comp-1.gif';
 import dragIcon from './block-drag.gif';
 import hatDragIcon from './hat-drag-up.gif';
+import pipIcon from './pip.gif';
 
 class Frame extends React.Component {
     constructor (props) {
@@ -192,6 +193,37 @@ class Frame extends React.Component {
                     }}
                     src={mouseIcon}
                 />
+                break;
+            case 4:
+                img = <div>
+                    <img
+                        className={styles.rainbow}
+                        style={{
+                            top: '25px',
+                            left: '50px',
+                            width: '75px'
+                        }}
+                        src={pipIcon}
+                    />
+                    <img
+                        className={styles.rainbow}
+                        style={{
+                            top: '25px',
+                            left: '145px',
+                            width: '75px'
+                        }}
+                        src={pipIcon}
+                    />
+                    <img
+                        className={styles.rainbow}
+                        style={{
+                            top: `${window.innerHeight - 90}px`,
+                            left: `${window.innerWidth - 180}px`,
+                            width: '75px'
+                        }}
+                        src={pipIcon}
+                    />
+                    </div>
                 break;
         }
         return (
