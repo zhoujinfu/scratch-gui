@@ -99,10 +99,13 @@ class Frame extends React.Component {
                 break;
         case 3:
             emitNextStep(3);
-            setTimeout(() => {
-                this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
-            }, 3000);
-            // setTimeout(() => this.props.vm.emit('STEP', 2), delayTime);
+            const handleClick = () => {
+                stage.removeEventListener('click', handleClick);
+                setTimeout(() => {
+                    this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
+                }, 4000);
+            }
+            stage.addEventListener('click', handleClick);
             this.setState({
                 top: bbox.top - padding,
                 left: 0,
