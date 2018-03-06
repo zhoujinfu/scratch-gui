@@ -16,9 +16,8 @@ import CustomProcedures from './custom-procedures.jsx';
 import {connect} from 'react-redux';
 import {updateToolbox} from '../reducers/toolbox';
 import {activateColorPicker} from '../reducers/color-picker';
-import {closeExtensionLibrary} from '../reducers/modals';
+import {closeExtensionLibrary, showPips} from '../reducers/modals';
 import {activateCustomProcedures, deactivateCustomProcedures} from '../reducers/custom-procedures';
-
 const addFunctionListener = (object, property, callback) => {
     const oldFn = object[property];
     object[property] = function () {
@@ -250,19 +249,19 @@ class Blocks extends React.Component {
                     this.glowOn = false;
                     this.intervalId = setInterval(() => {
                         this.glowOn = !this.glowOn;
-                        this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
+                        // this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
                     }, 500);
-                    // this.workspace.addChangeListener(this.handleFlyoutEvent);
+                    this.workspace.addChangeListener(this.handleFlyoutEvent);
                     this.workspace.addChangeListener(this.handleNextStepTimeout);
                 } else {
                     setTimeout(() => {
-                        this.handleStep(number, nextStepCallback);
+                        this.handleStep(number, nextStepCallback, fadeCallback);
                     }, 500)
                 }
                 break;
             case 1:
                 clearInterval(this.intervalId);
-                if (this.glowingBlock) this.workspace.glowStack(this.glowingBlock.id, false);
+                // if (this.glowingBlock) this.workspace.glowStack(this.glowingBlock.id, false);
                 // this.workspace.removeChangeListener(this.handleFlyoutEvent);
                 this.workspace.removeChangeListener(this.handleNextStepTimeout);
 
@@ -312,6 +311,7 @@ class Blocks extends React.Component {
 
                 // this.workspace.glowStack(this.glowingBlock.id, false);
                 this.workspace.toolbox_.setSelectedCategoryByName('Motion');
+                this.props.onShowPips();
                 break;
         }
     }
@@ -525,7 +525,8 @@ const mapDispatchToProps = dispatch => ({
     },
     updateToolboxState: toolboxXML => {
         dispatch(updateToolbox(toolboxXML));
-    }
+    },
+    onShowPips: () => dispatch(showPips())
 });
 
 export default connect(

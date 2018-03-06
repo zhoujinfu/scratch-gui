@@ -15,6 +15,7 @@ import SoundTab from '../../containers/sound-tab.jsx';
 import StageHeader from '../../containers/stage-header.jsx';
 import Stage from '../../containers/stage.jsx';
 
+import Pip from '../pip/pip.jsx';
 import Box from '../box/box.jsx';
 import FeedbackForm from '../feedback-form/feedback-form.jsx';
 import MenuBar from '../menu-bar/menu-bar.jsx';
@@ -50,6 +51,8 @@ const GUIComponent = props => {
         onActivateTab,
         previewInfoVisible,
         soundsTabVisible,
+        costumesTabPipVisible,
+        soundsTabPipVisible,
         vm,
         ...componentProps
     } = props;
@@ -104,8 +107,14 @@ const GUIComponent = props => {
                         >
                             <TabList className={tabClassNames.tabList}>
                                 <Tab className={tabClassNames.tab}>Blocks</Tab>
-                                <Tab className={tabClassNames.tab}>Costumes</Tab>
-                                <Tab className={tabClassNames.tab}>Sounds</Tab>
+                                <Tab className={tabClassNames.tab}>
+                                    Costumes
+                                    {costumesTabPipVisible ? <Pip /> : null}
+                                </Tab>
+                                <Tab className={tabClassNames.tab}>
+                                    Sounds
+                                    {soundsTabPipVisible ? <Pip /> : null}
+                                </Tab>
                             </TabList>
                             <TabPanel className={tabClassNames.tabPanel}>
                                 <Box className={styles.blocksWrapper}>
@@ -178,6 +187,8 @@ GUIComponent.propTypes = {
     costumesTabVisible: PropTypes.bool,
     feedbackFormVisible: PropTypes.bool,
     importInfoVisible: PropTypes.bool,
+    costumesTabPipVisible: PropTypes.bool,
+    soundsTabPipVisible: PropTypes.bool,
     intl: intlShape.isRequired,
     onActivateTab: PropTypes.func,
     onExtensionButtonClick: PropTypes.func,
@@ -187,6 +198,8 @@ GUIComponent.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
-    basePath: './'
+    basePath: './',
+    costumesTabPipVisible: true,
+    soundsTabPipVisible: true
 };
 export default injectIntl(GUIComponent);

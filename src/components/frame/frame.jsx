@@ -69,6 +69,7 @@ class Frame extends React.Component {
         switch (this.state.step) {
             case 0:
                 emitNextStep(0);
+                console.log('emitted next step');
                 // setTimeout(() => this.props.vm.emit('STEP', 0), delayTime);
                 this.setState({
                     top: bbox.top - padding,
@@ -197,37 +198,37 @@ class Frame extends React.Component {
                     src={mouseIcon}
                 />
                 break;
-            case 4:
-                img = <div>
-                    <img
-                        className={styles.rainbow}
-                        style={{
-                            top: '25px',
-                            left: '50px',
-                            width: '75px'
-                        }}
-                        src={pipIcon}
-                    />
-                    <img
-                        className={styles.rainbow}
-                        style={{
-                            top: '25px',
-                            left: '145px',
-                            width: '75px'
-                        }}
-                        src={pipIcon}
-                    />
-                    <img
-                        className={styles.rainbow}
-                        style={{
-                            top: `${window.innerHeight - 90}px`,
-                            left: `${window.innerWidth - 180}px`,
-                            width: '75px'
-                        }}
-                        src={pipIcon}
-                    />
-                    </div>
-                break;
+            // case 4:
+            //     img = <div>
+            //         <img
+            //             className={styles.rainbow}
+            //             style={{
+            //                 top: '25px',
+            //                 left: '50px',
+            //                 width: '75px'
+            //             }}
+            //             src={pipIcon}
+            //         />
+            //         <img
+            //             className={styles.rainbow}
+            //             style={{
+            //                 top: '25px',
+            //                 left: '145px',
+            //                 width: '75px'
+            //             }}
+            //             src={pipIcon}
+            //         />
+            //         <img
+            //             className={styles.rainbow}
+            //             style={{
+            //                 top: `${window.innerHeight - 90}px`,
+            //                 left: `${window.innerWidth - 180}px`,
+            //                 width: '75px'
+            //             }}
+            //             src={pipIcon}
+            //         />
+            //         </div>
+            //     break;
         }
         return (
             <div className={styles.container}>

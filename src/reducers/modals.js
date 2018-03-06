@@ -2,6 +2,7 @@ import analytics from '../lib/analytics';
 
 const OPEN_MODAL = 'scratch-gui/modals/OPEN_MODAL';
 const CLOSE_MODAL = 'scratch-gui/modals/CLOSE_MODAL';
+const SET_PIP = 'scratch-gui/modals/SET_PIP';
 
 const MODAL_BACKDROP_LIBRARY = 'backdropLibrary';
 const MODAL_COSTUME_LIBRARY = 'costumeLibrary';
@@ -12,6 +13,12 @@ const MODAL_PREVIEW_INFO = 'previewInfo';
 const MODAL_SOUND_LIBRARY = 'soundLibrary';
 const MODAL_SPRITE_LIBRARY = 'spriteLibrary';
 const MODAL_SOUND_RECORDER = 'soundRecorder';
+const PIP_SOUND_TAB = 'soundsTabPip';
+const PIP_COSTUME_TAB = 'costumesTabPip';
+const PIP_SPRITE_LIBRARY = 'spriteLibraryPip'
+const PIP_COSTUME_LIBRARY = 'costumeLibraryPip';
+const PIP_SOUND_LIBRARY = 'soundLibraryPip';
+const PIP_BACKDROP_LIBRARY = 'backdropLibraryPip';
 
 
 const initialState = {
@@ -23,7 +30,13 @@ const initialState = {
     [MODAL_PREVIEW_INFO]: true,
     [MODAL_SOUND_LIBRARY]: false,
     [MODAL_SPRITE_LIBRARY]: false,
-    [MODAL_SOUND_RECORDER]: false
+    [MODAL_SOUND_RECORDER]: false,
+    [PIP_SOUND_TAB]: false,
+    [PIP_COSTUME_TAB]: false,
+    [PIP_SPRITE_LIBRARY]: false,
+    [PIP_COSTUME_LIBRARY]: false,
+    [PIP_SOUND_LIBRARY]: false,
+    [PIP_BACKDROP_LIBRARY]: false
 };
 
 const reducer = function (state, action) {
@@ -37,6 +50,8 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             [action.modal]: false
         });
+    case SET_PIP:
+        return Object.assign({}, state, action.pips);
     default:
         return state;
     }
@@ -116,6 +131,70 @@ const closeSoundLibrary = function () {
 const closeSoundRecorder = function () {
     return closeModal(MODAL_SOUND_RECORDER);
 };
+
+const showPips = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_SOUND_TAB]: true,
+            [PIP_COSTUME_TAB]: true,
+            [PIP_SPRITE_LIBRARY]: true,
+            [PIP_COSTUME_LIBRARY]: true,
+            [PIP_SOUND_LIBRARY]: true,
+            [PIP_BACKDROP_LIBRARY]: true
+        }
+    }
+};
+
+const hideSoundTabPip = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_SOUND_TAB]: false
+        }
+    };
+};
+const hideSoundLibraryPip = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_SOUND_LIBRARY]: false
+        }
+    };
+};
+const hideCostumeTabPip = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_COSTUME_TAB]: false
+        }
+    };
+};
+const hideCostumeLibraryPip = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_COSTUME_LIBRARY]: false
+        }
+    };
+};
+const hideBackdropLibraryPip = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_BACKDROP_LIBRARY]: false
+        }
+    };
+};
+const hideSpriteLibraryPip = function () {
+    return {
+        type: SET_PIP,
+        pips: {
+            [PIP_SPRITE_LIBRARY]: false
+        }
+    };
+};
+
 export {
     reducer as default,
     openBackdropLibrary,
@@ -135,5 +214,12 @@ export {
     closePreviewInfo,
     closeSpriteLibrary,
     closeSoundLibrary,
-    closeSoundRecorder
+    closeSoundRecorder,
+    showPips,
+    hideSoundTabPip,
+    hideSoundLibraryPip,
+    hideCostumeTabPip,
+    hideCostumeLibraryPip,
+    hideBackdropLibraryPip,
+    hideSpriteLibraryPip
 };
