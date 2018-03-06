@@ -12,7 +12,8 @@ import {connect} from 'react-redux';
 import {
     closeCostumeLibrary,
     openCostumeLibrary,
-    openBackdropLibrary
+    openBackdropLibrary,
+    hideCostumeLibraryPip
 } from '../reducers/modals';
 
 import addLibraryBackdropIcon from '../components/asset-panel/icon--add-backdrop-lib.svg';
@@ -110,6 +111,7 @@ class CostumeTab extends React.Component {
         if (!this.props.vm.editingTarget) return;
         const costumes = this.props.vm.editingTarget.getCostumes() || [];
         this.setState({selectedCostumeIndex: Math.max(costumes.length - 1, 0)});
+        this.props.onHideCostumeLibraryPip();
     }
     handleNewBlankCostume () {
         const emptyItem = costumeLibraryContent.find(item => (
@@ -162,6 +164,7 @@ class CostumeTab extends React.Component {
             onNewLibraryCostumeClick,
             costumeLibraryVisible,
             onRequestCloseCostumeLibrary,
+            costumeLibraryPipVisible,
             ...props
         } = this.props;
 
@@ -215,6 +218,7 @@ class CostumeTab extends React.Component {
                 onDeleteClick={target.costumes.length > 1 ? this.handleDeleteCostume : null}
                 onDuplicateClick={this.handleDuplicateCostume}
                 onItemClick={this.handleSelectCostume}
+                showPip={costumeLibraryPipVisible}
             >
                 {target.costumes ?
                     <PaintEditorWrapper
@@ -238,6 +242,7 @@ class CostumeTab extends React.Component {
 CostumeTab.propTypes = {
     backdropLibraryVisible: PropTypes.bool,
     costumeLibraryVisible: PropTypes.bool,
+    costumeLibraryPipVisible: PropTypes.bool,
     editingTarget: PropTypes.string,
     intl: intlShape,
     onNewLibraryBackdropClick: PropTypes.func.isRequired,
@@ -266,7 +271,8 @@ const mapStateToProps = state => ({
     sprites: state.targets.sprites,
     stage: state.targets.stage,
     costumeLibraryVisible: state.modals.costumeLibrary,
-    backdropLibraryVisible: state.modals.backdropLibrary
+    backdropLibraryVisible: state.modals.backdropLibrary,
+    costumeLibraryPipVisible: state.modals.costumeLibraryPip
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -280,6 +286,9 @@ const mapDispatchToProps = dispatch => ({
     },
     onRequestCloseCostumeLibrary: () => {
         dispatch(closeCostumeLibrary());
+    },
+    onHideCostumeLibraryPip: () => {
+        dispatch(hideCostumeLibraryPip())
     }
 });
 

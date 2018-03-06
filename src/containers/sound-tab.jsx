@@ -22,7 +22,8 @@ import {connect} from 'react-redux';
 import {
     closeSoundLibrary,
     openSoundLibrary,
-    openSoundRecorder
+    openSoundRecorder,
+    hideSoundLibraryPip
 } from '../reducers/modals';
 
 class SoundTab extends React.Component {
@@ -76,6 +77,7 @@ class SoundTab extends React.Component {
         const sprite = this.props.vm.editingTarget.sprite;
         const sounds = sprite.sounds ? sprite.sounds : [];
         this.setState({selectedSoundIndex: Math.max(sounds.length - 1, 0)});
+        this.props.onHideSoundLibraryPip();
     }
 
     handleSurpriseSound () {
@@ -97,7 +99,8 @@ class SoundTab extends React.Component {
             intl,
             vm,
             onNewSoundFromLibraryClick,
-            onNewSoundFromRecordingClick
+            onNewSoundFromRecordingClick,
+            soundLibraryPipVisible
         } = this.props;
 
         if (!vm.editingTarget) {
@@ -162,6 +165,7 @@ class SoundTab extends React.Component {
                 onDeleteClick={this.handleDeleteSound}
                 onDuplicateClick={this.handleDuplicateSound}
                 onItemClick={this.handleSelectSound}
+                showPip={soundLibraryPipVisible}
             >
                 {sprite.sounds && sprite.sounds[this.state.selectedSoundIndex] ? (
                     <SoundEditor soundIndex={this.state.selectedSoundIndex} />
@@ -211,6 +215,7 @@ const mapStateToProps = state => ({
     sprites: state.targets.sprites,
     stage: state.targets.stage,
     soundLibraryVisible: state.modals.soundLibrary,
+    soundLibraryPipVisible: state.modals.soundLibraryPip,
     soundRecorderVisible: state.modals.soundRecorder
 });
 
@@ -224,6 +229,9 @@ const mapDispatchToProps = dispatch => ({
     },
     onRequestCloseSoundLibrary: () => {
         dispatch(closeSoundLibrary());
+    },
+    onHideSoundLibraryPip: () => {
+        dispatch(hideSoundLibraryPip())
     }
 });
 

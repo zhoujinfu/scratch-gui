@@ -14,7 +14,8 @@ const Selector = props => {
         selectedItemIndex,
         onDeleteClick,
         onDuplicateClick,
-        onItemClick
+        onItemClick,
+        showPip
     } = props;
 
     let newButtonSection = null;
@@ -29,6 +30,7 @@ const Selector = props => {
                     moreButtons={moreButtons}
                     title={title}
                     onClick={onClick}
+                    showPip={showPip}
                 />
             </Box>
         );
