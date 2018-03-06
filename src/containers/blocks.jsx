@@ -247,11 +247,11 @@ class Blocks extends React.Component {
                 this.glowingBlock = this.workspace.topBlocks_[0];
                 if (this.glowingBlock) {
                     this.glowOn = false;
-                    this.intervalId = setInterval(() => {
-                        this.glowOn = !this.glowOn;
+                    // this.intervalId = setInterval(() => {
+                    //     this.glowOn = !this.glowOn;
                         // this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
-                    }, 500);
-                    this.workspace.addChangeListener(this.handleFlyoutEvent);
+                    // }, 500);
+                    // this.workspace.addChangeListener(this.handleFlyoutEvent);
                     this.workspace.addChangeListener(this.handleNextStepTimeout);
                 } else {
                     setTimeout(() => {
@@ -260,7 +260,7 @@ class Blocks extends React.Component {
                 }
                 break;
             case 1:
-                clearInterval(this.intervalId);
+                // clearInterval(this.intervalId);
                 // if (this.glowingBlock) this.workspace.glowStack(this.glowingBlock.id, false);
                 // this.workspace.removeChangeListener(this.handleFlyoutEvent);
                 this.workspace.removeChangeListener(this.handleNextStepTimeout);

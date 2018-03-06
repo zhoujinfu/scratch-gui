@@ -20,7 +20,7 @@ class Frame extends React.Component {
     componentDidMount () {
         // this.props.vm.addListener('PROJECT_RUN_START', this.onProjectRunStart);
         // this.props.vm.addListener('PROJECT_RUN_STOP', this.onProjectRunStop);
-        window.addEventListener('resize', this.setRef);
+        // window.addEventListener('resize', this.setRef);
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Backslash') {
                 this.setState({
