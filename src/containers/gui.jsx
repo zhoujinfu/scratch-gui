@@ -4,7 +4,7 @@ import React from 'react';
 import VM from 'scratch-vm';
 import {connect} from 'react-redux';
 
-import {openExtensionLibrary} from '../reducers/modals';
+import {openExtensionLibrary, hideSoundTabPip, hideCostumeTabPip} from '../reducers/modals';
 import {
     activateTab,
     BLOCKS_TAB_INDEX,
@@ -17,6 +17,10 @@ import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import GUIComponent from '../components/gui/gui.jsx';
 
 class GUI extends React.Component {
+    constructor (props) {
+        super(props);
+        this.handleTab = this.handleTab.bind(this);
+    }
     componentDidMount () {
         this.audioEngine = new AudioEngine();
         this.props.vm.attachAudioEngine(this.audioEngine);
@@ -32,16 +36,26 @@ class GUI extends React.Component {
     componentWillUnmount () {
         this.props.vm.stopAll();
     }
+    handleTab (index) {
+        if (index === 1) {
+            this.props.onHideCostumesTabPip();
+        } else if (index === 2) {
+            this.props.onHideSoundsTabPip();
+        }
+        this.props.onActivateTab(index);
+    }
     render () {
         const {
             children,
             projectData, // eslint-disable-line no-unused-vars
             vm,
+            onActivateTab,
             ...componentProps
         } = this.props;
         return (
             <GUIComponent
                 vm={vm}
+                onActivateTab={this.handleTab}
                 {...componentProps}
             >
                 {children}
@@ -68,12 +82,16 @@ const mapStateToProps = state => ({
     feedbackFormVisible: state.modals.feedbackForm,
     importInfoVisible: state.modals.importInfo,
     previewInfoVisible: state.modals.previewInfo,
-    soundsTabVisible: state.editorTab.activeTabIndex === SOUNDS_TAB_INDEX
+    soundsTabVisible: state.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
+    soundsTabPipVisible: state.modals.soundsTabPip,
+    costumesTabPipVisible: state.modals.costumesTabPip
 });
 
 const mapDispatchToProps = dispatch => ({
     onExtensionButtonClick: () => dispatch(openExtensionLibrary()),
-    onActivateTab: tab => dispatch(activateTab(tab))
+    onActivateTab: tab => dispatch(activateTab(tab)),
+    onHideSoundsTabPip: () => dispatch(hideSoundTabPip()),
+    onHideCostumesTabPip: () => dispatch(hideCostumeTabPip())
 });
 
 const ConnectedGUI = connect(

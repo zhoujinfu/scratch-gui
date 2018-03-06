@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {connect} from 'react-redux';
-import {openBackdropLibrary} from '../reducers/modals';
+import {openBackdropLibrary, hideBackdropLibraryPip} from '../reducers/modals';
 import {activateTab, COSTUMES_TAB_INDEX} from '../reducers/editor-tab';
 
 import StageSelectorComponent from '../components/stage-selector/stage-selector.jsx';
@@ -34,6 +34,7 @@ class StageSelector extends React.Component {
     handleClick (e) {
         e.preventDefault();
         this.props.onSelect(this.props.id);
+        this.props.onHidePip();
     }
     handleSurpriseBackdrop () {
         // @todo should this not add a backdrop you already have?
@@ -56,6 +57,7 @@ class StageSelector extends React.Component {
             id,
             onActivateTab,
             onSelect,
+            onHidePip,
             /* eslint-enable no-unused-vars */
             ...componentProps
         } = this.props;
@@ -87,7 +89,8 @@ const mapDispatchToProps = dispatch => ({
     },
     onActivateTab: tabIndex => {
         dispatch(activateTab(tabIndex));
-    }
+    },
+    onHidePip: () => dispatch(hideBackdropLibraryPip())
 });
 
 export default connect(

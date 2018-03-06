@@ -52,6 +52,7 @@ const StageSelector = props => {
         onNewBackdropClick,
         onSurpriseBackdropClick,
         onEmptyBackdropClick,
+        backdropLibraryPipVisible,
         ...componentProps
     } = props;
     return (
@@ -84,6 +85,7 @@ const StageSelector = props => {
             <ActionMenu
                 className={styles.addButton}
                 img={backdropIcon}
+                showPip={backdropLibraryPipVisible}
                 moreButtons={[
                     {
                         title: intl.formatMessage(messages.addBackdropFromCamera),

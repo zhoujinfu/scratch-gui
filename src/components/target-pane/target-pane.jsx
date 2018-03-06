@@ -18,9 +18,11 @@ import styles from './target-pane.css';
  */
 const TargetPane = ({
     backdropLibraryVisible,
+    backdropLibraryPipVisible,
     editingTarget,
     hoveredTarget,
     spriteLibraryVisible,
+    spriteLibraryPipVisible,
     onChangeSpriteDirection,
     onChangeSpriteName,
     onChangeSpriteSize,
@@ -52,6 +54,7 @@ const TargetPane = ({
             raised={raiseSprites}
             selectedId={editingTarget}
             sprites={sprites}
+            spriteLibraryPipVisible={spriteLibraryPipVisible}
             onChangeSpriteDirection={onChangeSpriteDirection}
             onChangeSpriteName={onChangeSpriteName}
             onChangeSpriteSize={onChangeSpriteSize}
@@ -72,6 +75,7 @@ const TargetPane = ({
                     stage.costume.assetId
                 }
                 backdropCount={stage.costumeCount}
+                backdropLibraryPipVisible={backdropLibraryPipVisible}
                 id={stage.id}
                 selected={stage.id === editingTarget}
                 onSelect={onSelectSprite}

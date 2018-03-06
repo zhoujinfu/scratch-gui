@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import bindAll from 'lodash.bindall';
 import ReactTooltip from 'react-tooltip';
-
+import Pip from '../pip/pip.jsx';
 import styles from './action-menu.css';
 
 const CLOSE_DELAY = 300; // ms
@@ -39,7 +39,8 @@ class ActionMenu extends React.Component {
         //  which should be refactored.
         return newState.isOpen !== this.state.isOpen ||
             newState.forceHide !== this.state.forceHide ||
-            newProps.title !== this.props.title;
+            newProps.title !== this.props.title ||
+            newProps.showPip !== this.props.showPip;
     }
     componentWillUnmount () {
         this.buttonRef.removeEventListener('touchstart', this.handleTouchStart);
@@ -99,7 +100,8 @@ class ActionMenu extends React.Component {
             img: mainImg,
             title: mainTitle,
             moreButtons,
-            onClick
+            onClick,
+            showPip
         } = this.props;
 
         const mainTooltipId = `tooltip-${Math.random()}`;
@@ -169,6 +171,7 @@ class ActionMenu extends React.Component {
                         })}
                     </div>
                 </div>
+                {showPip ? <Pip /> : null}
             </div>
         );
     }

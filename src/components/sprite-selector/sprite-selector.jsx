@@ -64,6 +64,7 @@ const SpriteSelectorComponent = function (props) {
         raised,
         selectedId,
         sprites,
+        spriteLibraryPipVisible,
         ...componentProps
     } = props;
     let selectedSprite = sprites[selectedId];
@@ -142,6 +143,7 @@ const SpriteSelectorComponent = function (props) {
                     }
                 ]}
                 title={intl.formatMessage(messages.addSpriteFromLibrary)}
+                showPip={spriteLibraryPipVisible}
                 onClick={onNewSpriteClick}
             />
         </Box>

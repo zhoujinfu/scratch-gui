@@ -6,7 +6,8 @@ import {connect} from 'react-redux';
 import {
     openSpriteLibrary,
     closeBackdropLibrary,
-    closeSpriteLibrary
+    closeSpriteLibrary,
+    hideSpriteLibraryPip
 } from '../reducers/modals';
 
 import {activateTab, COSTUMES_TAB_INDEX} from '../reducers/editor-tab';
@@ -69,6 +70,7 @@ class TargetPane extends React.Component {
     handleSurpriseSpriteClick () {
         const item = spriteLibraryContent[Math.floor(Math.random() * spriteLibraryContent.length)];
         this.props.vm.addSprite2(JSON.stringify(item.json));
+        this.props.onHideSpriteLibraryPip();
     }
     handlePaintSpriteClick () {
         // @todo this is brittle, will need to be refactored for localized libraries
@@ -78,6 +80,7 @@ class TargetPane extends React.Component {
                 this.props.onActivateTab(COSTUMES_TAB_INDEX);
             });
         }
+        this.props.onHideSpriteLibraryPip();
     }
     handleBlockDragEnd (blocks) {
         if (this.props.hoveredTarget.sprite && this.props.hoveredTarget.sprite !== this.props.editingTarget) {
@@ -88,6 +91,7 @@ class TargetPane extends React.Component {
     render () {
         const {
             onActivateTab, // eslint-disable-line no-unused-vars
+            onHideSpriteLibraryPip,
             ...componentProps
         } = this.props;
         return (
@@ -133,11 +137,14 @@ const mapStateToProps = state => ({
     stage: state.targets.stage,
     raiseSprites: state.blockDrag,
     spriteLibraryVisible: state.modals.spriteLibrary,
-    backdropLibraryVisible: state.modals.backdropLibrary
+    backdropLibraryVisible: state.modals.backdropLibrary,
+    spriteLibraryPipVisible: state.modals.spriteLibraryPip,
+    backdropLibraryPipVisible: state.modals.backdropLibraryPip
 });
 const mapDispatchToProps = dispatch => ({
     onNewSpriteClick: e => {
         e.preventDefault();
+        dispatch(hideSpriteLibraryPip());
         dispatch(openSpriteLibrary());
     },
     onRequestCloseSpriteLibrary: () => {
@@ -151,7 +158,8 @@ const mapDispatchToProps = dispatch => ({
     },
     onReceivedBlocks: receivedBlocks => {
         dispatch(setReceivedBlocks(receivedBlocks));
-    }
+    },
+    onHideSpriteLibraryPip: () => dispatch(hideSpriteLibraryPip())
 });
 
 export default connect(
