@@ -109,8 +109,8 @@ class Frame extends React.Component {
             stage.addEventListener('click', handleClick);
             this.setState({
                 top: bbox.top - padding,
-                left: 0,
-                width: window.innerWidth,
+                left: left,
+                width: window.innerWidth - left,
                 height: bbox.height + 2 * padding
             });
             break;
