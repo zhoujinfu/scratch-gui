@@ -15,7 +15,7 @@ class Frame extends React.Component {
             'handleClick',
             'setRef'
         ]);
-        this.state = {step: 0, maxSteps: 5};
+        this.state = {step: 0, maxSteps: 7};
     }
     componentDidMount () {
         // this.props.vm.addListener('PROJECT_RUN_START', this.onProjectRunStart);
@@ -116,6 +116,32 @@ class Frame extends React.Component {
             break;
         case 4:
             emitNextStep(4);
+            setTimeout(() => {
+                this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
+            }, 2000);
+            // setTimeout(() => this.props.vm.emit('STEP', 3), delayTime);
+            this.setState({
+                top: 50,
+                left: 0,
+                width: 300,
+                height: 55
+            });
+            break;
+        case 5:
+            emitNextStep(5);
+            setTimeout(() => {
+                this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
+            }, 2000);
+            // setTimeout(() => this.props.vm.emit('STEP', 3), delayTime);
+            this.setState({
+                top: window.innerHeight - 100,
+                left: window.innerWidth - 180,
+                width: 175,
+                height: 95
+            });
+            break;
+        case 6:
+            emitNextStep(6);
             // setTimeout(() => this.props.vm.emit('STEP', 3), delayTime);
             this.setState({
                 top: 0,
