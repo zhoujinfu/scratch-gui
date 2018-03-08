@@ -4,10 +4,10 @@ import styles from './pip.css';
 import pipIcon from './pip.gif';
 
 const Pip = props => (
-    <img
-        className={styles.rainbow}
-        src={pipIcon}
-    />
+    <div className={styles.ringContainer}>
+        <div className={styles.ring}></div>
+        <div className={styles.circle}></div>
+    </div>
 );
 
 export default Pip;
