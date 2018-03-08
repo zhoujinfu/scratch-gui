@@ -18,7 +18,17 @@
     opacity: 1;
 }
 
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:1; }
+}
+
 .ring-container {
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 0.75s;
+    animation-fill-mode:forwards;
+
     position: absolute;
     pointer-events: none;
     top: -30px;

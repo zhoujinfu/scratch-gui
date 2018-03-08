@@ -35,9 +35,26 @@
     left: 0;
     z-index: 100;
     pointer-events: none;
-    opacity: 0.75;
 }
 
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:1; }
+}
+
+.absolute {
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 0.75s;
+    animation-fill-mode:forwards;
+}
+
+.slow {
+    animation-delay: 1.5s;
+}
+.fast {
+    animation-delay: 1s;
+}
 @keyframes rainbowFrames {
     0%   {filter: hue-rotate(0deg);}
     100%  {filter: hue-rotate(360deg);}

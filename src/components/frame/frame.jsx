@@ -2,6 +2,8 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './frame.css';
+import Pip from '../pip/pip.jsx';
+import classNames from 'classnames';
 
 import mouseIcon from './Comp-1.gif';
 import dragIcon from './block-drag.gif';
@@ -102,6 +104,7 @@ class Frame extends React.Component {
             emitNextStep(3);
             const handleClick = () => {
                 stage.removeEventListener('click', handleClick);
+                this.setState({fade: true});
                 setTimeout(() => {
                     this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
                 }, 4000);
@@ -184,45 +187,70 @@ class Frame extends React.Component {
         let img;
         switch (this.state.step) {
             case 0:
-                img = <img
+                img = <div
                     className={styles.absolute}
                     style={{
-                        top: '165px',
-                        left: '350px'
+                        top: '212px',
+                        left: '520px'
                     }}
-                    src={mouseIcon}
-                />
+                >
+                    <Pip />
+                </div>
                 break;
             case 1:
-                img = <img
-                    className={styles.absolute}
-                    style={{
-                        top: '179px',
-                        left: '165px',
-                        width: '289px'
-                    }}
-                    src={dragIcon}
-                />
+                img = <div>
+                    <div
+                        className={classNames(styles.absolute, styles.fast)}
+                        style={{
+                            top: '329px',
+                            left: '284px'
+                        }}
+                    >
+                        <Pip />
+                    </div>
+                    <div
+                        className={classNames(styles.absolute, styles.slow)}
+                        style={{
+                            top: '266px',
+                            left: '347px'
+                        }}
+                    >
+                        <Pip />
+                    </div>
+                </div>
                 break;
             case 2:
-                img = <img
-                    className={styles.absolute}
+            img = <div>
+                <div
+                    className={classNames(styles.absolute, styles.fast)}
                     style={{
-                        top: '145px',
-                        left: '102px'
+                        top: '253px',
+                        left: '190px'
                     }}
-                    src={hatDragIcon}
-                />
+                >
+                    <Pip />
+                </div>
+                <div
+                    className={classNames(styles.absolute, styles.slow)}
+                    style={{
+                        top: '196px',
+                        left: '347px'
+                    }}
+                >
+                    <Pip />
+                </div>
+            </div>
                 break;
             case 3:
-                img = <img
+                img = <div
                     className={styles.absolute}
                     style={{
-                        top: '180px',
-                        left: `${window.innerWidth - 390}px` ,
+                        top: '283px',
+                        left: `${window.innerWidth - 250}px` ,
                     }}
-                    src={mouseIcon}
-                />
+                >
+                    <Pip />
+                </div>
                 break;
             // case 4:
             //     img = <div>
