@@ -243,7 +243,7 @@ class Blocks extends React.Component {
         this.fadeCallback = fadeCallback;
         switch (number) {
             case 0:
-                this.workspace.toolbox_.setSelectedCategoryByName('Looks');
+                // this.workspace.toolbox_.setSelectedCategoryByName('Looks');
                 this.glowingBlock = this.workspace.topBlocks_[0];
                 if (this.glowingBlock) {
                     this.glowOn = false;
@@ -265,13 +265,13 @@ class Blocks extends React.Component {
                 // this.workspace.removeChangeListener(this.handleFlyoutEvent);
                 this.workspace.removeChangeListener(this.handleNextStepTimeout);
 
-                this.workspace.toolbox_.setSelectedCategoryByName('Sound');
+                // this.workspace.toolbox_.setSelectedCategoryByName('Motion');
 
                 this.glowingBlock = this.workspace.getFlyout().getWorkspace().topBlocks_.find((b) => b.type === 'sound_playuntildone');
                 this.glowOn = false;
                 this.intervalId = setInterval(() => {
                     this.glowOn = !this.glowOn;
-                    this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
+                    // this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
                 }, 500);
 
                 this.workspace.addChangeListener(this.handleNextStepTimeout);
@@ -291,7 +291,7 @@ class Blocks extends React.Component {
                 this.glowOn = false;
                 this.intervalId = setInterval(() => {
                     this.glowOn = !this.glowOn;
-                    this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
+                    // this.workspace.glowStack(this.glowingBlock.id, this.glowOn);
                 }, 500);
 
                 this.workspace.addChangeListener(this.handleNextStepTimeout);
@@ -310,7 +310,7 @@ class Blocks extends React.Component {
                 // this.workspace.removeChangeListener(this.handleFlyoutEvent);
 
                 // this.workspace.glowStack(this.glowingBlock.id, false);
-                this.workspace.toolbox_.setSelectedCategoryByName('Motion');
+                // this.workspace.toolbox_.setSelectedCategoryByName('Motion');
                 this.props.onShowPips();
                 break;
         }

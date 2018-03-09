@@ -102,6 +102,7 @@ class Frame extends React.Component {
             emitNextStep(3);
             const handleClick = () => {
                 stage.removeEventListener('click', handleClick);
+                this.setState({fade: true});
                 setTimeout(() => {
                     this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
                 }, 4000);
@@ -197,9 +198,8 @@ class Frame extends React.Component {
                 img = <img
                     className={styles.absolute}
                     style={{
-                        top: '179px',
-                        left: '165px',
-                        width: '289px'
+                        top: '195px',
+                        left: '45px',
                     }}
                     src={dragIcon}
                 />
@@ -208,8 +208,8 @@ class Frame extends React.Component {
                 img = <img
                     className={styles.absolute}
                     style={{
-                        top: '145px',
-                        left: '102px'
+                        top: '137px',
+                        left: '49px'
                     }}
                     src={hatDragIcon}
                 />
