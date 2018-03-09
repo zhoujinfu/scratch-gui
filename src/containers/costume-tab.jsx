@@ -279,10 +279,12 @@ const mapDispatchToProps = dispatch => ({
     onNewLibraryBackdropClick: e => {
         e.preventDefault();
         dispatch(openBackdropLibrary());
+        dispatch(hideCostumeLibraryPip())
     },
     onNewLibraryCostumeClick: e => {
         e.preventDefault();
         dispatch(openCostumeLibrary());
+        dispatch(hideCostumeLibraryPip())
     },
     onRequestCloseCostumeLibrary: () => {
         dispatch(closeCostumeLibrary());
