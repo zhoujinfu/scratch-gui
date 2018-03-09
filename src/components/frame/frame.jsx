@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './frame.css';
 
-import mouseIcon from './Comp-1.gif';
+import mouseIcon from './cursor-click.gif';
 import dragIcon from './block-drag.gif';
 import hatDragIcon from './hat-drag-up.gif';
 import pipIcon from './pip.gif';
@@ -187,7 +187,7 @@ class Frame extends React.Component {
                 img = <img
                     className={styles.absolute}
                     style={{
-                        top: '165px',
+                        top: '155px',
                         left: '350px'
                     }}
                     src={mouseIcon}
