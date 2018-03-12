@@ -129,6 +129,7 @@ class ActionMenu extends React.Component {
                         draggable={false}
                         src={mainImg}
                     />
+                    {showPip ? <Pip /> : null}
                 </button>
                 <ReactTooltip
                     className={styles.tooltip}
@@ -171,7 +172,6 @@ class ActionMenu extends React.Component {
                         })}
                     </div>
                 </div>
-                {showPip ? <Pip /> : null}
             </div>
         );
     }
