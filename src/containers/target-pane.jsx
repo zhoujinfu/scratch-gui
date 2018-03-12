@@ -150,9 +150,6 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseSpriteLibrary: () => {
         dispatch(closeSpriteLibrary());
     },
-    onRequestCloseBackdropLibrary: () => {
-        dispatch(closeBackdropLibrary());
-    },
     onActivateTab: tabIndex => {
         dispatch(activateTab(tabIndex));
     },

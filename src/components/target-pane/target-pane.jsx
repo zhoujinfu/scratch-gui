@@ -4,7 +4,6 @@ import React from 'react';
 import VM from 'scratch-vm';
 
 import SpriteLibrary from '../../containers/sprite-library.jsx';
-import BackdropLibrary from '../../containers/backdrop-library.jsx';
 import SpriteSelectorComponent from '../sprite-selector/sprite-selector.jsx';
 import StageSelector from '../../containers/stage-selector.jsx';
 
@@ -35,7 +34,6 @@ const TargetPane = ({
     onSurpriseSpriteClick,
     onPaintSpriteClick,
     onRequestCloseSpriteLibrary,
-    onRequestCloseBackdropLibrary,
     onSelectSprite,
     raiseSprites,
     stage,
@@ -87,12 +85,6 @@ const TargetPane = ({
                         onRequestClose={onRequestCloseSpriteLibrary}
                     />
                 ) : null}
-                {backdropLibraryVisible ? (
-                    <BackdropLibrary
-                        vm={vm}
-                        onRequestClose={onRequestCloseBackdropLibrary}
-                    />
-                ) : null}
             </div>
         </div>
     </div>
@@ -117,7 +109,6 @@ const spriteShape = PropTypes.shape({
 });
 
 TargetPane.propTypes = {
-    backdropLibraryVisible: PropTypes.bool,
     editingTarget: PropTypes.string,
     extensionLibraryVisible: PropTypes.bool,
     hoveredTarget: PropTypes.shape({
@@ -134,7 +125,6 @@ TargetPane.propTypes = {
     onDuplicateSprite: PropTypes.func,
     onNewSpriteClick: PropTypes.func,
     onPaintSpriteClick: PropTypes.func,
-    onRequestCloseBackdropLibrary: PropTypes.func,
     onRequestCloseExtensionLibrary: PropTypes.func,
     onRequestCloseSpriteLibrary: PropTypes.func,
     onSelectSprite: PropTypes.func,

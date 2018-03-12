@@ -14,8 +14,8 @@ import TargetPane from '../../containers/target-pane.jsx';
 import SoundTab from '../../containers/sound-tab.jsx';
 import StageHeader from '../../containers/stage-header.jsx';
 import Stage from '../../containers/stage.jsx';
-
 import Pip from '../pip/pip.jsx';
+import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
 import FeedbackForm from '../feedback-form/feedback-form.jsx';
 import MenuBar from '../menu-bar/menu-bar.jsx';
@@ -37,6 +37,10 @@ const messages = defineMessages({
     }
 });
 
+// Cache this value to only retreive it once the first time.
+// Assume that it doesn't change for a session.
+let isRendererSupported = null;
+
 const GUIComponent = props => {
     const {
         activeTabIndex,
@@ -47,6 +51,7 @@ const GUIComponent = props => {
         feedbackFormVisible,
         importInfoVisible,
         intl,
+        loading,
         onExtensionButtonClick,
         onActivateTab,
         previewInfoVisible,
@@ -73,7 +78,9 @@ const GUIComponent = props => {
         tabSelected: classNames(tabStyles.reactTabsTabSelected, styles.isSelected)
     };
 
-    const isRendererSupported = Renderer.isSupported();
+    if (isRendererSupported === null) {
+        isRendererSupported = Renderer.isSupported();
+    }
 
     return (
         <Box
@@ -83,6 +90,9 @@ const GUIComponent = props => {
             {/* previewInfoVisible ? (
                 <PreviewModal />
             ) : null */}
+            {loading ? (
+                <Loader />
+            ) : null}
             {importInfoVisible ? (
                 <ImportModal />
             ) : null}
@@ -190,6 +200,7 @@ GUIComponent.propTypes = {
     costumesTabPipVisible: PropTypes.bool,
     soundsTabPipVisible: PropTypes.bool,
     intl: intlShape.isRequired,
+    loading: PropTypes.bool,
     onActivateTab: PropTypes.func,
     onExtensionButtonClick: PropTypes.func,
     onTabSelect: PropTypes.func,
