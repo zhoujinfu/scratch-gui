@@ -53,7 +53,7 @@ class Frame extends React.Component {
         const stage = document.getElementById('stage');
         const bbox = stage.getBoundingClientRect();
         const left = 302;
-        const delayTime = 700; // ms
+        const delayTime = 500; // ms
         const padding = 3;
 
         const emitNextStep = (n) => {
@@ -94,7 +94,7 @@ class Frame extends React.Component {
                 this.setState({
                     top: bbox.top - padding,
                     left: 0,
-                    width: window.innerWidth,
+                    width: bbox.left,
                     height: bbox.height + 2 * padding
                 });
                 break;
@@ -110,8 +110,8 @@ class Frame extends React.Component {
             stage.addEventListener('click', handleClick);
             this.setState({
                 top: bbox.top - padding,
-                left: left,
-                width: window.innerWidth - left,
+                left: 0,
+                width: window.innerWidth,
                 height: bbox.height + 2 * padding
             });
             break;
@@ -119,7 +119,7 @@ class Frame extends React.Component {
             emitNextStep(4);
             setTimeout(() => {
                 this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
-            }, 2000);
+            }, 2500);
             // setTimeout(() => this.props.vm.emit('STEP', 3), delayTime);
             this.setState({
                 top: 50,
@@ -130,19 +130,6 @@ class Frame extends React.Component {
             break;
         case 5:
             emitNextStep(5);
-            setTimeout(() => {
-                this.setState({step: (this.state.step + 1) % this.state.maxSteps, fade: false}, this.setRef);
-            }, 2000);
-            // setTimeout(() => this.props.vm.emit('STEP', 3), delayTime);
-            this.setState({
-                top: window.innerHeight - 100,
-                left: window.innerWidth - 180,
-                width: 175,
-                height: 95
-            });
-            break;
-        case 6:
-            emitNextStep(6);
             // setTimeout(() => this.props.vm.emit('STEP', 3), delayTime);
             this.setState({
                 top: 0,

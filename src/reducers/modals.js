@@ -141,7 +141,7 @@ const showPips = function () {
             [PIP_SPRITE_LIBRARY]: true,
             [PIP_COSTUME_LIBRARY]: true,
             [PIP_SOUND_LIBRARY]: true,
-            [PIP_BACKDROP_LIBRARY]: true
+            [PIP_BACKDROP_LIBRARY]: false
         }
     }
 };

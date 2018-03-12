@@ -29,13 +29,22 @@
     width: 100%;
 }
 
+@keyframes fadeIn { from { opacity:0; } to { opacity:0.85; } }
+
 .absolute {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 100;
+    user-select: none;
     pointer-events: none;
     opacity: 0.75;
+
+    opacity:0;
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration: 0.01s;
+    animation-delay: 1s;
 }
 
 @keyframes rainbowFrames {
