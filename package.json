@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "6": "0.0.1",
-    "scratch-vm": "github:thisandagain/scratch-vm#feature/vision"
+    "scratch-vm": "github:ericrosenbaum/scratch-vm#feature/vision"
   },
   "peerDependencies": {
     "react": "^16.0.0",
