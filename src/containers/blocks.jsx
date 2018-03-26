@@ -241,9 +241,18 @@ class Blocks extends React.Component {
         this.stepNumber = number;
         this.nextStepCallback = nextStepCallback;
         this.fadeCallback = fadeCallback;
+
+        const stub = (obj, method) => {
+            obj[`old_${method}`] = obj[method];
+            obj[method] = () => undefined;
+        };
+
+        const unstub = (obj, method) => {
+            obj[method] = obj[`old_${method}`];
+        };
+
         switch (number) {
             case 0:
-                // this.workspace.toolbox_.setSelectedCategoryByName('Looks');
                 this.glowingBlock = this.workspace.topBlocks_[0];
                 if (this.glowingBlock) {
                     this.glowOn = false;
@@ -253,6 +262,13 @@ class Blocks extends React.Component {
                     // }, 500);
                     // this.workspace.addChangeListener(this.handleFlyoutEvent);
                     this.workspace.addChangeListener(this.handleNextStepTimeout);
+
+                    this.workspace.topBlocks_[0].setMovable(false);
+                    this.workspace.topBlocks_[0].setEditable(false);
+                    stub(this.workspace, 'isDraggable');
+                    stub(this.workspace.getFlyout().getWorkspace(), 'isDraggable');
+                    stub(this.workspace, 'scroll');
+                    stub(this.workspace.getFlyout().scrollbar_, 'set');
                 } else {
                     setTimeout(() => {
                         this.handleStep(number, nextStepCallback, fadeCallback);
@@ -285,7 +301,11 @@ class Blocks extends React.Component {
                 clearInterval(this.intervalId);
                 this.workspace.glowStack(this.glowingBlock.id, false);
 
+                unstub(this.workspace.getFlyout().scrollbar_, 'set');
                 this.workspace.toolbox_.setSelectedCategoryByName('Events');
+                setTimeout(() => {
+                    stub(this.workspace.getFlyout().scrollbar_, 'set');
+                }, 1000);
 
                 this.glowingBlock = this.workspace.getFlyout().getWorkspace().topBlocks_.find((b) => b.type === 'event_whenthisspriteclicked');
                 this.glowOn = false;
@@ -312,6 +332,13 @@ class Blocks extends React.Component {
                 // this.workspace.glowStack(this.glowingBlock.id, false);
                 // this.workspace.toolbox_.setSelectedCategoryByName('Motion');
                 this.props.onShowPips();
+
+                this.workspace.topBlocks_[0].setMovable(true);
+                this.workspace.topBlocks_[0].setEditable(true);
+                unstub(this.workspace, 'isDraggable');
+                unstub(this.workspace.getFlyout().getWorkspace(), 'isDraggable');
+                unstub(this.workspace, 'scroll');
+                unstub(this.workspace.getFlyout().scrollbar_, 'set');
                 break;
         }
     }
