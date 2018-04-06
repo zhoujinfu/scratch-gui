@@ -26,6 +26,9 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
+  "dependencies": {
+    "scratch-vm": "github:kchadha/scratch-vm#save-load"
+  },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
     "babel-core": "^6.23.1",
@@ -94,7 +97,6 @@
     "scratch-paint": "0.2.0-prerelease.20180404190532",
     "scratch-render": "0.1.0-prerelease.1522346711",
     "scratch-storage": "0.4.0",
-    "scratch-vm": "0.1.0-prerelease.1523024495",
     "selenium-webdriver": "3.6.0",
     "startaudiocontext": "1.2.1",
     "style-loader": "^0.20.0",
