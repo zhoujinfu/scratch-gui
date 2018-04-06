@@ -30,7 +30,6 @@ class SaveButton extends React.Component {
             document.body.removeChild(saveLink);
         });
     }
-    // TODO add back `onClick={this.handleClick}` when enabling button
     render () {
         const {
             vm, // eslint-disable-line no-unused-vars
@@ -38,6 +37,7 @@ class SaveButton extends React.Component {
         } = this.props;
         return (
             <div
+                onClick={this.handleClick}
                 {...props}
             >
                 File
