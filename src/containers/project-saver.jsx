@@ -29,6 +29,7 @@ class ProjectSaver extends React.Component {
         document.body.appendChild(saveLink);
 
         this.props.vm.saveProjectSb3().then(content => {
+            window.URL = window.URL | window.webkitURL;
             const url = window.URL.createObjectURL(content);
 
             saveLink.href = url;
