@@ -110,6 +110,11 @@ class Blocks extends React.Component {
             this.toolboxUpdateTimeout = setTimeout(() => {
                 this.updateToolbox();
             }, 0);
+        } else {
+          clearTimeout(this.toolboxUpdateTimeout);
+          this.toolboxUpdateTimeout = setTimeout(() => {
+              this.updateToolbox();
+          }, 0);
         }
         if (this.props.isVisible === prevProps.isVisible) {
             return;

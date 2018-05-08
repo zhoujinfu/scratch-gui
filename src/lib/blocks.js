@@ -1,4 +1,5 @@
 import ScratchBlocks from 'scratch-blocks';
+import blocks from '../bell/blocks';
 
 /**
  * Connect scratch blocks with the vm
@@ -193,5 +194,5 @@ export default function (vm) {
         return monitoredBlock ? monitoredBlock.isMonitored : false;
     };
 
-    return ScratchBlocks;
+    return blocks(ScratchBlocks);
 }

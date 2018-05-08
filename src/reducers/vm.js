@@ -1,8 +1,8 @@
-import VM from 'scratch-vm';
+import VM from '../bell/scratch-vm/index.js';
 import storage from '../lib/storage';
 
 const SET_VM = 'scratch-gui/vm/SET_VM';
-const defaultVM = new VM();
+const defaultVM = VM;
 defaultVM.attachStorage(storage);
 const initialState = defaultVM;
 

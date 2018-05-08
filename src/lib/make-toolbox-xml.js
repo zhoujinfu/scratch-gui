@@ -1,3 +1,4 @@
+import { _start, _motion, _operator, _var, _func } from '../bell/bell-toolbox-xml';
 const categorySeparator = '<sep gap="36"/>';
 
 const blockSeparator = '<sep gap="36"/>'; // At default scale, about 28px
@@ -676,15 +677,20 @@ const makeToolboxXML = function (isStage, targetId, categoriesXML) {
 
     const everything = [
         xmlOpen,
-        motion(isStage, targetId), gap,
-        looks(isStage, targetId), gap,
-        sound(isStage, targetId), gap,
-        events(isStage, targetId), gap,
-        control(isStage, targetId), gap,
-        sensing(isStage, targetId), gap,
-        operators(isStage, targetId), gap,
-        variables(isStage, targetId), gap,
-        myBlocks(isStage, targetId)
+        _start(), gap,
+        _motion(), gap,
+        _operator(), gap,
+        _var(), gap,
+        _func(), gap,
+        // motion(isStage, targetId), gap,
+        // looks(isStage, targetId), gap,
+        // sound(isStage, targetId), gap,
+        // events(isStage, targetId), gap,
+        // control(isStage, targetId), gap,
+        // sensing(isStage, targetId), gap,
+        // operators(isStage, targetId), gap,
+        // variables(isStage, targetId), gap,
+        // myBlocks(isStage, targetId)
     ];
 
     if (categoriesXML) {
